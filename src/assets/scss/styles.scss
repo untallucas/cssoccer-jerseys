@@ -1,0 +1,469 @@
+$tileWidth: 150px;
+$tileHeight: 155px;
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #314659;
+  background-color: #2b3f50;
+  box-shadow: 0 0 200px 100px rgba(0,0,0,0.2) inset;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 40px 40px;
+  max-width: 100%;
+  overflow-x: hidden;
+
+  @media (max-width: 450px){
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+h1 {
+  width: 100%;
+  color: #FFFFFF;
+  font-family: 'Teko', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 40px;
+  padding: 0;
+  margin: 0;
+}
+
+h2 {
+  width: 100%;
+  color: #FFFFFF;
+  font-family: 'Teko', sans-serif;
+  font-size: 40px;
+  font-weight: 300;
+  text-transform: uppercase;
+  line-height: 40px;
+  padding: 0;
+  margin: 0 0 20px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.svg-definitions {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.name {
+  transition: all 0.6s ease-out;
+  transform: perspective(200px);
+  width: $tileWidth;
+  height: $tileHeight;
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  color: #FFFFFF;
+  font-family: 'Teko', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 25px;
+  text-shadow: 0 0 2px rgba(0,0,0,0.5), 0 0 1px rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+    transform: perspective(200px) translateZ(70px);
+  }  
+}
+
+.jersey {
+  transition: all 0.3s ease-out;
+  transform: perspective(200px);
+  display: inline-block;
+  width: $tileWidth;
+  height: $tileHeight;
+  position: relative;
+  margin-bottom: 100px;
+  cursor: pointer;
+  margin: 50px 40px 50px 0;
+  clip-path: url(#tshirt);
+
+  box-shadow: 
+    -1*$tileWidth/2   0 0 rgba(0,0,0,0.03) inset, 
+    -1*$tileWidth/2.5 0 0 rgba(0,0,0,0.04) inset, 
+    -1*$tileWidth/3.5 0 0 rgba(0,0,0,0.05) inset,
+    0 -5px 30px rgba(0,0,0,0.2) inset,
+    0 15px 30px rgba(255,255,255,0.1) inset;
+
+  &:before {
+    content: '';
+    display: block;
+    width: $tileWidth;
+    height: $tileHeight;
+    position: absolute;
+    clip-path: url(#arms);
+    top: 0;
+    left: 0;
+    box-shadow: -1*$tileWidth/2 0 0 rgba(0,0,0,0.35) inset, $tileWidth/2 0 0 rgba(0,0,0,0.05) inset;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    width: $tileWidth;
+    height: $tileHeight;
+    position: absolute;
+    clip-path: url(#neck);
+    top: 0;
+    left: 0;
+    box-shadow: 0 7px 10px rgba(0,0,0,0.2) inset;
+  }
+
+  &:hover {
+    transform: perspective(200px) translateZ(30px);
+  }
+}
+
+
+
+
+/* PLAIN */
+$plain: (
+  independiente:  #E70000,
+  lanus:          #800505,
+  belgrano:       #69CFF1,
+  temperley:      #69CFF1,
+  huracan:        #FFFFFF,
+  argentinos:     #E70000,
+  quilmes:        #FFFFFF,
+  sarmiento:      #0EA00E,
+);
+ 
+@each $team, $value in $plain {
+  ##{$team} {
+    background: $value;
+
+    &:before {
+      background: $value;
+    }
+
+    &:after {
+      background: darken($value, 20%);
+    }
+  }
+}
+
+
+
+
+/* HORIZONTAL STRIPES */
+$horizontal: (
+  boca:       (color1: #1D1D6F, color2: #FFC800),
+  gimnasia:   (color1: #FFFFFF, color2: #1D1D6F),
+  tigre:      (color1: #1D1D6F, color2: #E70000),
+);
+
+@each $team, $value in $horizontal {
+  ##{$team} {
+    background: linear-gradient( 0deg, map-get($value, color1) 0, map-get($value, color1) 33%, map-get($value, color2) 33%, map-get($value, color2) 66%, map-get($value, color1) 66% );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }
+  }
+}
+
+
+
+
+/* OBLIQUE STRIPES */
+$oblique: (
+  river:      (color1: #FFFFFF, color2: #E70000),
+  arsenal:    (color1: #69CFF1, color2: #E70000),
+  brown:      (color1: #FFFFFF, color2: #1D1D6F),
+  banfield:   (color1: #FFFFFF, color2: #0EA00E),
+);
+
+@each $team, $value in $oblique {
+  ##{$team} {
+    background: linear-gradient( -60deg, 
+      map-get($value, color1) 0, 
+      map-get($value, color1) 44%,
+      map-get($value, color2) 44%,
+      map-get($value, color2) 56%,
+      map-get($value, color1) 56% );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }    
+  }
+}
+
+
+
+
+/* HALVES */
+$halves: (
+  newells:  (color1: #E70000, color2: #222222),
+  colon:    (color1: #E70000, color2: #222222),
+);
+
+@each $team, $value in $halves {
+  ##{$team} {
+    background: linear-gradient( 90deg, map-get($value, color1) 50%, map-get($value, color2) 50% );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }
+  }
+}
+
+
+
+
+/* VERTICAL */
+$vertical: (
+  estudiantes:  (color1: #E70000, color2: #FFFFFF),
+  racing:       (color1: #B6EDFF, color2: #FFFFFF),
+  sanlorenzo:   (color1: #1D1D6F, color2: #E70000),
+  central:      (color1: #1D1D6F, color2: #FFC800),
+  talleres:     (color1: #FFFFFF, color2: #1D1D6F),
+  union:        (color1: #E70000, color2: #FFFFFF),
+  atletico:     (color1: #FFFFFF, color2: #B6EDFF),
+  patronato:    (color1: #222222, color2: #E70000),
+  olimpo:       (color1: #222222, color2: #FFC800),
+  sanmartin:    (color1: #222222, color2: #0EA00E),
+  aldosivi:     (color1: #FFC800, color2: #0EA00E),
+  rafaela:      (color1: #B6EDFF, color2: #FFFFFF),
+);
+
+@each $team, $value in $vertical {
+  ##{$team} {
+    background: linear-gradient( 90deg, 
+      map-get($value, color1) 0%, 
+      map-get($value, color1) 9%,
+      map-get($value, color1) 9%,
+      map-get($value, color1) 18%,
+      map-get($value, color1) 18%,
+      map-get($value, color1) 27%,
+      map-get($value, color2) 27%,
+      map-get($value, color2) 36%,
+      map-get($value, color1) 36%,
+      map-get($value, color1) 45%,
+      map-get($value, color2) 45%,
+      map-get($value, color2) 55%,
+      map-get($value, color1) 55%,
+      map-get($value, color1) 64%,
+      map-get($value, color2) 64%,
+      map-get($value, color2) 73%,
+      map-get($value, color1) 73%,
+      map-get($value, color1) 82%,
+      map-get($value, color1) 82%,
+      map-get($value, color1) 91%,
+      map-get($value, color1) 91%,
+      map-get($value, color1) 100%
+    );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }
+  }
+}
+
+
+
+
+/* GODOY CRUZ */
+$godoycruz: (
+  godoycruz: (color1: #1D1D6F, color2: #FFFFFF),
+);
+
+@each $team, $value in $godoycruz {
+  ##{$team} {
+    background: linear-gradient( 90deg, 
+      map-get($value, color1) 0%, 
+      map-get($value, color1) 20%,
+      map-get($value, color2) 20%,
+      map-get($value, color2) 21%,
+      map-get($value, color1) 21%,
+      map-get($value, color1) 32%,
+      map-get($value, color2) 32%,
+      map-get($value, color2) 33%,
+      map-get($value, color1) 33%,
+      map-get($value, color1) 44%,
+      map-get($value, color2) 44%,
+      map-get($value, color2) 45%,
+      map-get($value, color1) 45%,
+      map-get($value, color1) 55%,
+      map-get($value, color2) 55%,
+      map-get($value, color2) 56%,
+      map-get($value, color1) 56%,
+      map-get($value, color1) 67%,
+      map-get($value, color2) 67%,
+      map-get($value, color2) 68%,
+      map-get($value, color1) 68%,
+      map-get($value, color1) 79%,
+      map-get($value, color2) 79%,
+      map-get($value, color2) 80%,
+      map-get($value, color1) 80%,
+      map-get($value, color1) 100%
+    );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }
+  }
+}
+
+
+
+
+/* CHACARITA */
+$chacarita: (
+  chacarita: (color1: #222222, color2: #E70000, color3: #FFFFFF),
+);
+
+@each $team, $value in $chacarita {
+  ##{$team} {
+    background: linear-gradient( 90deg, 
+      map-get($value, color1) 0%,
+      map-get($value, color1) 28%,
+      map-get($value, color3) 28%,
+      map-get($value, color3) 29%,
+      map-get($value, color2) 29%,
+      map-get($value, color2) 42%,
+      map-get($value, color3) 42%,
+      map-get($value, color3) 43%,
+      map-get($value, color1) 43%,
+      map-get($value, color1) 57%,
+      map-get($value, color3) 57%,
+      map-get($value, color3) 58%,
+      map-get($value, color2) 58%,
+      map-get($value, color2) 71%,
+      map-get($value, color3) 71%,
+      map-get($value, color3) 72%,
+      map-get($value, color1) 72%,
+      map-get($value, color1) 100%
+    );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }
+  }
+}
+
+
+
+
+/* DEFENSA */
+$defensa: (
+  defensa: (color1: #0EA00E, color2: #FFFF00),
+);
+
+@each $team, $value in $defensa {
+  ##{$team} {
+    background: linear-gradient( 0deg, 
+      map-get($value, color2) 10%,
+      map-get($value, color1) 80%
+    );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }
+  }
+}
+
+
+
+
+/* VELEZ */
+$velez: (
+  velez: (color1: #FFFFFF, color2: #1D1D6F),
+);
+
+@each $team, $value in $velez {
+  ##{$team} {
+    background-blend-mode: normal;
+    background:
+      linear-gradient( 
+        135deg,
+        transparent 0,
+        transparent 38%,
+        transparent 38%,
+        transparent 45%,
+        map-get($value, color1) 45%,
+        map-get($value, color1) 100% 
+      ),    
+      linear-gradient( 
+        -135deg,
+        transparent 0,
+        transparent 38%,
+        map-get($value, color2) 38%,
+        map-get($value, color2) 45%,
+        map-get($value, color1) 45%,
+        map-get($value, color1) 100% 
+      ),
+      linear-gradient( 
+        135deg,
+        transparent 0,
+        transparent 38%,
+        map-get($value, color2) 38%,
+        map-get($value, color2) 45%,
+        map-get($value, color1) 45%,
+        map-get($value, color1) 100% 
+      ),
+      linear-gradient( 
+        0deg,
+        map-get($value, color1) 0%,
+        map-get($value, color1) 100% 
+      );
+
+    &:before {
+      background: map-get($value, color1);
+    }
+
+    &:after {
+      background: darken(map-get($value, color1), 20%);
+    }    
+  }
+}

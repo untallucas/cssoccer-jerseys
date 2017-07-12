@@ -1,0 +1,5 @@
+node_modules
+dev
+*.sublime-*
+npm-debug.log
+.DS_Store
