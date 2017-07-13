@@ -32,10 +32,10 @@ var paths = {
         'src/assets/vendor/slick-carousel/slick'
       ],
       scripts: [
-        'src/assets/vendor/jquery/dist/jquery.js',
+        'src/assets/vendor/jquery/docs/jquery.js',
         'src/assets/vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
         'src/assets/vendor/slick-carousel/slick/slick.js',
-        'src/assets/vendor/wow/dist/wow.js'
+        'src/assets/vendor/wow/docs/wow.js'
       ],
       static: [
         'src/assets/vendor/bootstrap-sass/assets/fonts/**/*',
@@ -55,13 +55,13 @@ var paths = {
   },
 
   dist: {
-    base:     'dist',
-    markup:   'dist',
-    fonts:    'dist/fonts',
-    icons:    'dist/icons',
-    images:   'dist/images',
-    scripts:  'dist/js',
-    styles:   'dist/css',
+    base:     'docs',
+    markup:   'docs',
+    fonts:    'docs/fonts',
+    icons:    'docs/icons',
+    images:   'docs/images',
+    scripts:  'docs/js',
+    styles:   'docs/css',
   }
 };
 
